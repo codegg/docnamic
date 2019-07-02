@@ -81,7 +81,9 @@ class Renderer
                 $doc = new DOMDocument();
                 $doc->loadXML($fileContent);
                 $this->createTraverser($doc)->traverse();
-                $this->target->addFromString($fileName, $doc->saveXML());
+                $content = $doc->saveXML();
+                $content = str_replace('&lt;br /&gt;', '<text:line-break/>', $content);
+                $this->target->addFromString($fileName, $content);
             }
         }
 
